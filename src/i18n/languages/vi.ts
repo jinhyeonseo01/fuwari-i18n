@@ -33,6 +33,8 @@ export const vi: Translation = {
 	[Key.more]: "Thêm",
 
 	[Key.author]: "Tác giả",
-	[Key.publishedAt]: "Đăng vào lúc",
-	[Key.license]: "Giấy phép bản quyền",
+	[Key.publishedAt]: "Xuất bản tại",
+	[Key.license]: "Giấy phép",
+	[Key.unsupportedLang]: "Trang này chưa được dịch sang %s.",
+	[Key.langName]: "Tiếng Việt",
 };

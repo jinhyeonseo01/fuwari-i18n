@@ -1,0 +1,27 @@
+---
+import { getStaticAlternates } from "@utils/url-utils";
+import ArchivePanel from "../../components/ArchivePanel.svelte";
+import I18nKey from "../../i18n/i18nKey";
+import {
+	DEFAULT_LOCALE,
+	i18n,
+	SUPPORTED_LOCALES,
+} from "../../i18n/translation";
+import MainGridLayout from "../../layouts/MainGridLayout.astro";
+import { getSortedPostsListForLang } from "../../utils/content-utils";
+
+export async function getStaticPaths() {
+	return SUPPORTED_LOCALES.filter((lang) => lang !== DEFAULT_LOCALE).map(
+		(lang) => ({
+			params: { lang },
+		}),
+	);
+}
+
+const { lang } = Astro.params;
+const sortedPostsList = await getSortedPostsListForLang(lang);
+---
+
+<MainGridLayout title={i18n(I18nKey.archive)} lang={lang} alternateLinks={getStaticAlternates("/archive/")}>
+    <ArchivePanel sortedPosts={sortedPostsList} lang={lang} client:only="svelte"></ArchivePanel>
+</MainGridLayout>

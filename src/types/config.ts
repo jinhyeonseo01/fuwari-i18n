@@ -6,8 +6,8 @@ export type SiteConfig = {
 
 	lang:
 		| "en"
-		| "zh_CN"
-		| "zh_TW"
+		| "zh-CN"
+		| "zh-TW"
 		| "ja"
 		| "ko"
 		| "es"
@@ -32,7 +32,7 @@ export type SiteConfig = {
 	};
 	toc: {
 		enable: boolean;
-		depth: 1 | 2 | 3;
+		depth: 1 | 2 | 3 | 4;
 	};
 
 	favicon: Favicon[];
