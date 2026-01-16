@@ -8,8 +8,8 @@ import { ko } from "./languages/ko";
 import { th } from "./languages/th";
 import { tr } from "./languages/tr";
 import { vi } from "./languages/vi";
-import { zhCN } from "./languages/zh-CN";
-import { zhTW } from "./languages/zh-TW";
+import { zhCN } from "./languages/zh_CN";
+import { zhTW } from "./languages/zh_TW";
 
 export type Translation = {
 	[K in I18nKey]: string;
