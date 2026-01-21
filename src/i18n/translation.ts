@@ -5,6 +5,8 @@ import { es } from "./languages/es";
 import { id } from "./languages/id";
 import { ja } from "./languages/ja";
 import { ko } from "./languages/ko";
+import { ptBR } from "./languages/pt_BR";
+import { ru } from "./languages/ru";
 import { th } from "./languages/th";
 import { tr } from "./languages/tr";
 import { vi } from "./languages/vi";
@@ -36,6 +38,10 @@ const map: { [key: string]: Translation } = {
 	"en-us": en,
 	"en-gb": en,
 	"en-au": en,
+	pt: ptBR,
+	"pt-br": ptBR,
+	ru: ru,
+	"ru-ru": ru,
 	"zh-cn": zhCN,
 	"zh-tw": zhTW,
 	ja: ja,
@@ -57,9 +63,9 @@ export function getTranslation(lang: string): Translation {
 	return map[lang.toLowerCase()] || defaultTranslation;
 }
 
-export function i18n(key: I18nKey): string {
-	const lang = siteConfig.lang || DEFAULT_LOCALE;
-	return getTranslation(lang)[key];
+export function i18n(key: I18nKey, lang?: string): string {
+	const locale = lang || siteConfig.lang || DEFAULT_LOCALE;
+	return getTranslation(locale)[key];
 }
 
 export function getKeyToLanguage(lang: string): string {

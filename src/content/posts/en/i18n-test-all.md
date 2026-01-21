@@ -5,7 +5,7 @@ description: "Test post available in all supported languages."
 image: ""
 tags: ["i18n-test"]
 category: "Test"
-draft: false
+draft: true
 ---
 
 This is the English version of the i18n test post.

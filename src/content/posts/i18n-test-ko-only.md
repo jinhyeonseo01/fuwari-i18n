@@ -5,7 +5,7 @@ description: "Test post available only in Korean (default)."
 image: ""
 tags: ["i18n-test", "ko-only"]
 category: "Test"
-draft: false
+draft: true
 ---
 
 This post only exists in Korean. Other languages should fallback to this.

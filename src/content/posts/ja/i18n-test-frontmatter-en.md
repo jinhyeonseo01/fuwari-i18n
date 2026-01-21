@@ -6,7 +6,7 @@ image: ""
 tags: ["i18n-test", "frontmatter-override"]
 category: "Test"
 lang: "en"
-draft: false
+draft: true
 ---
 
 This post is physically located in `src/content/posts/ja/i18n-test-frontmatter-en.md`, but its frontmatter specifies `lang: en`.

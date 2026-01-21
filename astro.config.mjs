@@ -1,3 +1,5 @@
+import { fileURLToPath } from "node:url";
+import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import tailwind from "@astrojs/tailwind";
@@ -21,13 +23,20 @@ import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-cop
 import { pluginLanguageBadge } from "./src/plugins/expressive-code/language-badge.ts";
 import { AdmonitionComponent } from "./src/plugins/rehype-component-admonition.mjs";
 import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.mjs";
+import { rehypeLazyMedia } from "./src/plugins/rehype-lazy-media.js";
 import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
+import { createSitemapSerialize } from "./src/utils/sitemap-utils.ts";
+
+const site = "https://fuwari.vercel.app/";
+const contentDir = fileURLToPath(
+	new URL("./src/content/posts", import.meta.url),
+);
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://fuwari.vercel.app/",
+	site,
 	base: "/",
 	trailingSlash: "always",
 	integrations: [
@@ -101,6 +110,8 @@ export default defineConfig({
 				showCopyToClipboardButton: false,
 			},
 		}),
+		mdx(),
+
 		svelte(),
 		sitemap({
 			i18n: {
@@ -109,6 +120,7 @@ export default defineConfig({
 					SUPPORTED_LOCALES.map((lang) => [lang, lang]),
 				),
 			},
+			serialize: createSitemapSerialize(site, contentDir),
 		}),
 	],
 	i18n: {
@@ -128,6 +140,59 @@ export default defineConfig({
 		rehypePlugins: [
 			rehypeKatex,
 			rehypeSlug,
+			rehypeLazyMedia,
+			[
+				rehypeComponents,
+				{
+					components: {
+						github: GithubCardComponent,
+						note: (x, y) => AdmonitionComponent(x, y, "note"),
+						tip: (x, y) => AdmonitionComponent(x, y, "tip"),
+						important: (x, y) => AdmonitionComponent(x, y, "important"),
+						caution: (x, y) => AdmonitionComponent(x, y, "caution"),
+						warning: (x, y) => AdmonitionComponent(x, y, "warning"),
+					},
+				},
+			],
+			[
+				rehypeAutolinkHeadings,
+				{
+					behavior: "append",
+					properties: {
+						className: ["anchor"],
+					},
+					content: {
+						type: "element",
+						tagName: "span",
+						properties: {
+							className: ["anchor-icon"],
+							"data-pagefind-ignore": true,
+						},
+						children: [
+							{
+								type: "text",
+								value: "#",
+							},
+						],
+					},
+				},
+			],
+		],
+	},
+	mdx: {
+		remarkPlugins: [
+			remarkMath,
+			remarkReadingTime,
+			remarkExcerpt,
+			remarkGithubAdmonitionsToDirectives,
+			remarkDirective,
+			remarkSectionize,
+			parseDirectiveNode,
+		],
+		rehypePlugins: [
+			rehypeKatex,
+			rehypeSlug,
+			rehypeLazyMedia,
 			[
 				rehypeComponents,
 				{

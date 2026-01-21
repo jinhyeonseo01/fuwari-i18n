@@ -22,10 +22,14 @@ export function getPostUrlBySlug(slug: string, lang?: string): string {
 	let detectedLang = lang;
 
 	const parts = slug.split("/");
-	if (parts.length > 1 && (SUPPORTED_LOCALES as any).includes(parts[0])) {
+	const matchedLocale = (SUPPORTED_LOCALES as any).find(
+		(l: string) => l.toLowerCase() === parts[0].toLowerCase(),
+	);
+
+	if (parts.length > 1 && matchedLocale) {
 		logicalSlug = parts.slice(1).join("/");
 		if (!detectedLang) {
-			detectedLang = parts[0];
+			detectedLang = matchedLocale;
 		}
 	}
 
@@ -41,7 +45,8 @@ export function getCategoryUrl(category: string | null, lang?: string): string {
 	if (
 		!category ||
 		category.trim() === "" ||
-		category.trim().toLowerCase() === i18n(I18nKey.uncategorized).toLowerCase()
+		category.trim().toLowerCase() ===
+			i18n(I18nKey.uncategorized, lang).toLowerCase()
 	)
 		return url("/archive/?uncategorized=true", lang);
 	return url(`/archive/?category=${encodeURIComponent(category.trim())}`, lang);

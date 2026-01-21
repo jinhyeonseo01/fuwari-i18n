@@ -5,7 +5,7 @@ description: "Test post available only in Japanese."
 image: ""
 tags: ["i18n-test", "ja-only"]
 category: "Test"
-draft: false
+draft: true
 ---
 
 This post only exists in Japanese. Even the default (KO) doesn't have it.

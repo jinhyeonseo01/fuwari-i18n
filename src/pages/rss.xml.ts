@@ -5,6 +5,7 @@ import type { APIContext } from "astro";
 import MarkdownIt from "markdown-it";
 import sanitizeHtml from "sanitize-html";
 import { siteConfig } from "@/config";
+import { getEffectiveDate } from "@utils/date-utils";
 
 const parser = new MarkdownIt();
 
@@ -27,9 +28,10 @@ export async function GET(context: APIContext) {
 			const content =
 				typeof post.body === "string" ? post.body : String(post.body || "");
 			const cleanedContent = stripInvalidXmlChars(content);
+			const pubDate = getEffectiveDate(post.data.published, post.data.updated);
 			return {
 				title: post.data.title,
-				pubDate: post.data.published,
+				pubDate,
 				description: post.data.description || "",
 				link: getPostUrlBySlug(post.slug),
 				content: sanitizeHtml(parser.render(cleanedContent), {

@@ -37,4 +37,9 @@ export const zhTW: Translation = {
 	[Key.license]: "許可協議",
 	[Key.unsupportedLang]: "該頁面尚未翻譯成%s。",
 	[Key.langName]: "繁體中文",
+	[Key.profile]: "簡介",
+	[Key.portfolio]: "作品集",
+	[Key.notFoundTitle]: "找不到頁面",
+	[Key.backToHome]: "返回首頁",
+	[Key.updatedSuffix]: "(\u66F4\u65B0)",
 };

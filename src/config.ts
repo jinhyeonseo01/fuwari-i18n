@@ -1,5 +1,6 @@
 import { DEFAULT_LOCALE } from "./i18n/constants";
 import type {
+	CommentConfig,
 	ExpressiveCodeConfig,
 	LicenseConfig,
 	NavBarConfig,
@@ -8,18 +9,40 @@ import type {
 } from "./types/config";
 import { LinkPreset } from "./types/config";
 
+export const expressiveCodeConfig: ExpressiveCodeConfig = {
+	theme: "dracula",
+};
+
+export const commentConfig: CommentConfig = {
+	giscus: {
+		repo: "saicaca/fuwari",
+		repoId: "R_kgDOKy9jQA",
+		category: "General",
+		categoryId: "DIC_kwDOKy9jQM4CbSlA",
+		mapping: "pathname",
+		strict: "0",
+		reactionsEnabled: "0",
+		emitMetadata: "0",
+		inputPosition: "bottom",
+		theme: "preferred_color_scheme",
+		lang: DEFAULT_LOCALE,
+		loading: "lazy",
+	},
+};
+
 export const siteConfig: SiteConfig = {
-	title: "Fuwari",
+	title: "Cleryn",
 	subtitle: "Demo Site",
 	lang: DEFAULT_LOCALE as SiteConfig["lang"], // Language code, e.g. 'en', 'zh-CN', 'ja', etc.
 	themeColor: {
-		hue: 250, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
+		hue: 285, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
 		fixed: false, // Hide the theme color picker for visitors
 	},
 	banner: {
 		enable: true,
 		src: "assets/images/demo-banner.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
+		quality: "mid", // Optional: output quality for Astro image optimization
 		credit: {
 			enable: true, // Display the credit text of the banner image
 			text: "", // Credit text to be displayed
@@ -45,17 +68,24 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Home,
 		LinkPreset.Archive,
 		LinkPreset.About,
+		LinkPreset.Portfolio,
 		{
 			name: "GitHub",
-			url: "https://github.com/saicaca/fuwari", // Internal links should not include the base path, as it is automatically added
-			external: true, // Show an external link icon and will open in a new tab
+			url: "https://github.com/saicaca/fuwari",
+			external: true,
 		},
+		// {
+		// 	name: "YouTube",
+		// 	url: "https://youtube.com",
+		// 	external: true,
+		// },
 	],
 };
 
 export const profileConfig: ProfileConfig = {
 	avatar: "assets/images/demo-avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-	name: "Lorem Ipsum",
+	avatarQuality: "high", // Optional: output quality for Astro image optimization
+	name: "Cleryn",
 	bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 	links: [
 		{
@@ -82,10 +112,4 @@ export const licenseConfig: LicenseConfig = {
 	enable: true,
 	name: "CC BY-SA 4.0",
 	url: "https://creativecommons.org/licenses/by-sa/4.0/",
-};
-
-export const expressiveCodeConfig: ExpressiveCodeConfig = {
-	// Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
-	// Please select a dark theme, as this blog theme currently only supports dark background color
-	theme: "github-dark",
 };

@@ -20,7 +20,9 @@ interface Props {
 	banner?: string;
 	description?: string;
 	lang?: string;
+	fontLang?: string;
 	setOGTypeArticle?: boolean;
+	ogImage?: string;
 	headings?: MarkdownHeading[];
 	alternateLinks?: { href: string; lang: string }[];
 }
@@ -30,7 +32,9 @@ const {
 	banner,
 	description,
 	lang,
+	fontLang,
 	setOGTypeArticle,
+	ogImage,
 	headings = [],
 } = Astro.props;
 const hasBannerCredit =
@@ -42,7 +46,7 @@ const mainPanelTop = siteConfig.banner.enable
 	: "5.5rem";
 ---
 
-<Layout title={title} banner={banner} description={description} lang={lang} setOGTypeArticle={setOGTypeArticle} alternateLinks={Astro.props.alternateLinks}>
+<Layout title={title} banner={banner} description={description} lang={lang} fontLang={fontLang} setOGTypeArticle={setOGTypeArticle} ogImage={ogImage} alternateLinks={Astro.props.alternateLinks}>
 
 <!-- Navbar -->
 <slot slot="head" name="head"></slot>
@@ -53,9 +57,9 @@ const mainPanelTop = siteConfig.banner.enable
 </div>
 
 <!-- Banner -->
-{siteConfig.banner.enable && <div id="banner-wrapper" class={`absolute z-10 w-full transition duration-700 overflow-hidden`} style={`top: -${BANNER_HEIGHT_EXTEND}vh`}>
-    <ImageWrapper id="banner" alt="Banner image of the blog" class:list={["object-cover h-full transition duration-700 opacity-0 scale-105"]}
-                  src={siteConfig.banner.src} position={siteConfig.banner.position}
+{siteConfig.banner.enable && <div id="banner-wrapper" class={`absolute -z-10 w-full transition duration-700 overflow-hidden`} style={`top: -${BANNER_HEIGHT_EXTEND}vh`}>
+    <ImageWrapper id="banner" alt="Banner image of the blog" loading="eager" decoding="async" fetchpriority="high" class:list={["object-cover h-full transition duration-700 opacity-0 scale-105"]}
+                  src={siteConfig.banner.src} position={siteConfig.banner.position} quality={siteConfig.banner.quality}
     >
     </ImageWrapper>
 </div>}
@@ -111,7 +115,7 @@ const mainPanelTop = siteConfig.banner.enable
             {"toc-hide": siteConfig.banner.enable}]}
         >
             <div id="toc-inner-wrapper" class="fixed top-14 w-[var(--toc-width)] h-[calc(100vh_-_20rem)] overflow-y-scroll overflow-x-hidden hide-scrollbar">
-                <div id="toc" class="w-full h-full transition-swup-fade ">
+                <div id="toc" class="w-full transition-swup-fade bg-[var(--toc-btn-bg)] rounded-xl overflow-hidden">
                     <div class="h-8 w-full"></div>
                     <TOC headings={headings}></TOC>
                     <div class="h-8 w-full"></div>

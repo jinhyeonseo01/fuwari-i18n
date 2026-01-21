@@ -37,4 +37,9 @@ export const vi: Translation = {
 	[Key.license]: "Giấy phép",
 	[Key.unsupportedLang]: "Trang này chưa được dịch sang %s.",
 	[Key.langName]: "Tiếng Việt",
+	[Key.profile]: "Hồ sơ",
+	[Key.portfolio]: "Portfolio",
+	[Key.notFoundTitle]: "Không tìm thấy trang",
+	[Key.backToHome]: "Quay về trang chủ",
+	[Key.updatedSuffix]: "(Cập nhật)",
 };

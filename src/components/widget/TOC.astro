@@ -2,6 +2,7 @@
 import type { MarkdownHeading } from "astro";
 import { siteConfig } from "../../config";
 import { url } from "../../utils/url-utils";
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "../../i18n/translation";
 
 interface Props {
 	class?: string;
@@ -16,7 +17,10 @@ for (const heading of headings) {
 }
 
 const className = Astro.props.class;
-const isPostsRoute = Astro.url.pathname.startsWith(url("/posts/"));
+const postsPaths = SUPPORTED_LOCALES.map((locale) => url("/posts/", locale));
+const isPostsRoute = postsPaths.some((path) =>
+	Astro.url.pathname.startsWith(path),
+);
 
 const removeTailingHash = (text: string) => {
 	let lastIndexOfHash = text.lastIndexOf("#");
@@ -52,9 +56,10 @@ const maxLevel = siteConfig.toc.depth;
                     {heading.depth == minDepth + 3 && <div class="transition w-1 h-1 rounded-full bg-black/10 dark:bg-white/15"></div>}
                 </div>
                 <div class:list={["transition text-sm", {
-                    "text-50": heading.depth == minDepth || heading.depth == minDepth + 1,
-                    "text-30": (heading.depth == minDepth + 2) || (heading.depth == minDepth + 3),
-                    //"text-20": heading.depth == minDepth + 3,
+                    "text-90": heading.depth == minDepth,
+                    "text-75": heading.depth == minDepth + 1,
+                    "text-50": heading.depth == minDepth + 2,
+                    "text-30": heading.depth == minDepth + 3,
                 }]}>{removeTailingHash(heading.text)}</div>
             </a>
     )}

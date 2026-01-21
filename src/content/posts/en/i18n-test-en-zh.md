@@ -5,7 +5,7 @@ description: "Test post available in English and Chinese but not Korean."
 image: ""
 tags: ["i18n-test"]
 category: "Test"
-draft: false
+draft: true
 ---
 
 English version.
